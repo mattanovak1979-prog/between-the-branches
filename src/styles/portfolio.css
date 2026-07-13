@@ -44,8 +44,8 @@
 .fg-mode small{font-family:'Fraunces',serif; font-size:11px; opacity:.7; font-weight:500;}
 
 /* Hero (catalog) */
-.fg-hero{position:relative; height:min(58vh,500px); overflow:hidden;}
-.fg-hero-img{width:100%; height:100%; object-fit:cover; object-position:50% 90%; display:block; filter:brightness(1.14) contrast(.96) saturate(1.06); animation:fg-kenburns 30s ease-in-out infinite alternate;}
+.fg-hero{position:relative; height:min(80vh,760px); overflow:hidden;}
+.fg-hero-img{width:100%; height:100%; object-fit:cover; object-position:50% 60%; display:block; filter:brightness(1.14) contrast(.96) saturate(1.06); animation:fg-kenburns 30s ease-in-out infinite alternate;}
 @keyframes fg-kenburns{from{transform:scale(1)}to{transform:scale(1.035)}}
 .fg-hero-scrim{position:absolute; inset:0; background:radial-gradient(135% 100% at 50% 42%, rgba(8,14,10,.34), rgba(8,14,10,.06) 72%);}
 .fg-hero-copy{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 clamp(20px,5vw,56px); color:var(--bone);}
