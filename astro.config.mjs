@@ -5,5 +5,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   // `site` is used for absolute URLs; update to the real Netlify/custom domain
   // after the first deploy. Not required for the site to function.
-  site: 'https://betweenthebraches.netlify.app',
+  site: 'https://betweenthebranches.netlify.app',
 });
