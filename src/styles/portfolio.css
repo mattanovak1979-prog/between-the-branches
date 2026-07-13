@@ -90,11 +90,8 @@
 .fg-card:hover .fg-frame{box-shadow:0 12px 30px rgba(20,35,26,.24);}
 .fg-img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s cubic-bezier(.2,.7,.3,1);}
 .fg-card:hover .fg-img{transform:scale(1.05);}
-.fg-reveal{position:absolute; left:0; right:0; bottom:0; padding:32px 14px 12px; background:linear-gradient(0deg, rgba(10,17,12,.78), transparent); opacity:0; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; pointer-events:none;}
-.fg-card:hover .fg-reveal{opacity:1; transform:translateY(0);}
-.fg-reveal-no{font-size:10px; font-weight:600; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold);}
-.fg-reveal-title{font-family:'Fraunces',serif; font-size:16px; font-weight:500; color:var(--bone); margin:3px 0 0; line-height:1.2;}
-.fg-reveal-place{font-size:11.5px; color:rgba(255,252,242,.8); margin:2px 0 0; letter-spacing:.2px;}
+/* Catalog cards show the photo only — no caption overlay. All details
+   (No./title/place/story/settings) appear in the lightbox on click. */
 /* cursor-follow peek affordance */
 .fg-peek{position:fixed; z-index:55; left:0; top:0; display:flex; align-items:center; gap:6px; padding:7px 13px 7px 11px; border-radius:999px; background:var(--amber); color:var(--bone); font-size:11px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; white-space:nowrap; pointer-events:none; opacity:0; transform:translate(-50%,-50%) scale(.6); transition:opacity .18s ease, transform .18s cubic-bezier(.2,.8,.2,1); box-shadow:0 6px 18px rgba(20,35,26,.3); will-change:transform,opacity;}
 .fg-peek[data-show="true"]{opacity:1; transform:translate(-50%,-50%) scale(1);}
@@ -193,12 +190,20 @@
   .fg-gallery{columns:2 150px; cursor:auto;}
   .fg-hit{cursor:zoom-in;}
   .fg-peek{display:none;}
-  .fg-reveal{opacity:1; transform:none; padding:22px 12px 10px; background:linear-gradient(0deg, rgba(10,17,12,.72), transparent);}
   .fg-hero{height:min(52vh,420px);}
   .fg-hero-sub,.fg-hero-tag{display:none;}
   .fg-th-nav{position:fixed; bottom:20px; margin:0;}
   .fg-rail{display:none;}
   .fg-trail-copy{padding-bottom:64px;}
+  /* Portrait phones: keep all three mode tabs (incl. Trail) on one row.
+     Drop the wordmark (bird logomark stays) and tighten the header so the
+     Catalog/Journal/Trail switch never runs off the right edge. Header height
+     stays ~52px, so the sticky filter bar and full-height Trail/Journal
+     sections (pinned to that height) are unaffected. */
+  .fg-header{padding:10px 14px; gap:12px;}
+  .fg-brand-name{display:none;}
+  .fg-modes{gap:3px; padding:3px;}
+  .fg-mode{padding:7px 12px;}
 }
 .fg-root button:focus-visible, .fg-root a:focus-visible{outline:2px solid var(--amber-deep); outline-offset:2px; border-radius:4px;}
 @media (prefers-reduced-motion:reduce){

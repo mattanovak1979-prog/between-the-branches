@@ -105,11 +105,6 @@ export function initPortfolio(data) {
           <button class="fg-hit" data-open="${p.id}" aria-label="View ${esc(p.title)}">
             <div class="fg-frame">
               <img class="fg-img" src="${esc(p.src)}" alt="${esc(p.title)}" loading="lazy">
-              <div class="fg-reveal">
-                <div class="fg-reveal-no">No. ${esc(p.no)}</div>
-                <div class="fg-reveal-title">${esc(p.title)}</div>
-                <div class="fg-reveal-place">${esc(p.place)} · ${esc(p.coord)}</div>
-              </div>
             </div>
           </button>
         </figure>`
