@@ -44,8 +44,11 @@
 .fg-mode small{font-family:'Fraunces',serif; font-size:11px; opacity:.7; font-weight:500;}
 
 /* Hero (catalog) */
-.fg-hero{position:relative; height:min(80vh,760px); overflow:hidden;}
-.fg-hero-img{width:100%; height:100%; object-fit:cover; object-position:50% 60%; display:block; filter:brightness(1.14) contrast(.96) saturate(1.06); animation:fg-kenburns 30s ease-in-out infinite alternate;}
+/* Hero locked to the photo's own 3:2 shape so the full scene (sky + water)
+   shows instead of a cropped horizontal band. Capped at 92vh so it stays
+   sane on very tall/large monitors. Mobile height is overridden below. */
+.fg-hero{position:relative; width:100%; aspect-ratio:3 / 2; max-height:92vh; overflow:hidden;}
+.fg-hero-img{width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; filter:brightness(1.14) contrast(.96) saturate(1.06); animation:fg-kenburns 30s ease-in-out infinite alternate;}
 @keyframes fg-kenburns{from{transform:scale(1)}to{transform:scale(1.035)}}
 .fg-hero-scrim{position:absolute; inset:0; background:radial-gradient(135% 100% at 50% 42%, rgba(8,14,10,.34), rgba(8,14,10,.06) 72%);}
 .fg-hero-copy{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 clamp(20px,5vw,56px); color:var(--bone);}
@@ -203,11 +206,12 @@
   .fg-th-nav{position:fixed; bottom:20px; margin:0;}
   .fg-rail{display:none;}
   .fg-trail-copy{padding-bottom:64px;}
-  /* Trail: landscape photos were cropped hard (looked zoomed-in) inside the
-     portrait full-screen sections. Show the whole photo, letterboxed on a
-     dark field, and anchor it toward the top so the caption reads below it. */
+  /* Trail: landscape photos in portrait full-screen sections. Fill most of
+     the screen (photo takes the top ~80%, caption sits in the dark strip
+     below) — a middle ground between the hard full-bleed crop and a small
+     fully-contained band. */
   .fg-trail-sec{background:var(--ink);}
-  .fg-trail-sec img{object-fit:contain; object-position:50% 38%;}
+  .fg-trail-sec img{object-fit:cover; object-position:50% 50%; height:80%; inset:0 0 auto 0;}
   /* Portrait phones: keep all three mode tabs (incl. Trail) on one row.
      Drop the wordmark (bird logomark stays) and tighten the header so the
      Catalog/Journal/Trail switch never runs off the right edge. Header height
