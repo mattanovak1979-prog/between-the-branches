@@ -203,6 +203,11 @@
   .fg-th-nav{position:fixed; bottom:20px; margin:0;}
   .fg-rail{display:none;}
   .fg-trail-copy{padding-bottom:64px;}
+  /* Trail: landscape photos were cropped hard (looked zoomed-in) inside the
+     portrait full-screen sections. Show the whole photo, letterboxed on a
+     dark field, and anchor it toward the top so the caption reads below it. */
+  .fg-trail-sec{background:var(--ink);}
+  .fg-trail-sec img{object-fit:contain; object-position:50% 38%;}
   /* Portrait phones: keep all three mode tabs (incl. Trail) on one row.
      Drop the wordmark (bird logomark stays) and tighten the header so the
      Catalog/Journal/Trail switch never runs off the right edge. Header height
