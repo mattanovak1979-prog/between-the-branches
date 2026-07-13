@@ -76,6 +76,7 @@ and was preserved exactly.
 | Netlify Identity (invite-only) | ✅ enabled |
 | Git Gateway | ✅ enabled |
 | Identity widget on homepage (invite flow) | ✅ fixed + live |
+| Post-launch design refinements | ✅ done + approved by Matt (see below) |
 | CMS **login** | ✅ appears working (Matt confirmed) |
 | CMS **publish → commit → rebuild** loop | ⏳ **NOT yet exercised** — repo still has only 3 commits (all Larry's), live count still 30. Needs one real CMS publish to confirm the write path end-to-end. |
 | Photographer invited | ⏳ not yet |
@@ -90,6 +91,32 @@ and was preserved exactly.
    Send them `https://betweenthebranches.netlify.app/admin/`. They click the
    email link → set a password → they're in.
 3. (Optional) Point everyone at `README.md` for how to add photos.
+
+## Post-launch design refinements (2026-07-13, all approved by Matt)
+
+All in `src/styles/portfolio.css` unless noted; each was build-tested and pushed.
+
+- **Mobile header** (`@media max-width:720px`): the "Trail" tab was clipping off
+  the right edge in portrait. Hid the wordmark (kept the bird logomark) and
+  enlarged the logomark to `48x35` so it reads as prominent; header stays ~52px
+  tall so sticky/full-height offsets are unaffected.
+- **Catalog cards:** caption overlay (No./title/place) shows on **hover on
+  desktop**, **hidden on phones** (`.fg-reveal{display:none}` in the 720 block) —
+  on mobile the photo shows alone and details open in the lightbox on tap. (The
+  `.fg-reveal` markup lives in `src/scripts/app.js`.)
+- **Desktop hero:** shows the **whole photo edge-to-edge** — full width, natural
+  height (hero.jpg is 1150×767 ≈ 3:2), **no crop, no height cap, no Ken Burns
+  zoom** (the zoom was clipping the water). Result is a tall hero (~width÷1.5).
+  Mobile keeps a compact fixed-height (`min(52vh,420px)`) cover hero.
+- **Mobile Trail:** landscape photos looked hard-cropped in the portrait
+  full-screen sections. Reworked to show the **whole photo** (contain, in flow)
+  with the caption **directly beneath**, the photo+caption block centered on a
+  dark (`--ink`) field, scrim hidden — so caption placement is identical on
+  every slide. Desktop Trail unchanged (full-bleed cover suits wide viewports).
+
+Key lesson baked in: **portrait phone + landscape photo can't be both
+full-screen and uncropped** — Trail/hero framing trades "fill" against "show the
+whole photo." Current choice favors showing the whole photo.
 
 ---
 
