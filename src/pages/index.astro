@@ -59,8 +59,10 @@ const payload = JSON.stringify({ specimens, hero, total });
   </script>
 
   <!-- Netlify Identity: catches the invite/confirmation token when it lands on
-       the homepage and forwards the photographer to the CMS login at /admin/. -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+       the homepage and forwards the photographer to the CMS login at /admin/.
+       `is:inline` is REQUIRED — without it Astro tries to bundle this remote URL
+       and the widget never loads, breaking the invite flow. -->
+  <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script is:inline>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on('init', (user) => {
