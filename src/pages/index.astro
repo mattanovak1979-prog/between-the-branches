@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/portfolio.css';
+
+// Specimens come from the CMS-managed content collection, ordered by number.
+const specimenEntries = await getCollection('specimens');
+const specimens = specimenEntries
+  .map((e) => e.data)
+  .sort((a, b) => a.no.localeCompare(b.no))
+  .map((d, i) => ({
+    id: i + 1,
+    no: d.no,
+    title: d.title,
+    cat: d.cat,
+    place: d.place,
+    coord: d.coord,
+    story: d.story,
+    exif: d.exif,
+    src: d.image,
+    ratio: d.ratio,
+  }));
+
+// Hero photo (site singleton). Fall back to the first specimen if unset.
+const settingsEntries = await getCollection('settings');
+const hero = settingsEntries[0]?.data.hero ?? specimens[0]?.src ?? '';
+
+const total = specimens.length;
+const payload = JSON.stringify({ specimens, hero, total });
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Between the Branches — a field guide to the wild things nearby</title>
+  <meta
+    name="description"
+    content="A naturalist photography catalog — numbered specimens with a location, a time, and the story of the shot. Browse as a catalog, a field journal, or an immersive trail."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="fg-root">
+    <div id="fg-app"></div>
+    <div id="fg-theater-root"></div>
+  </div>
+
+  <script id="fg-data" type="application/json" set:html={payload} />
+  <script>
+    import { initPortfolio } from '../scripts/app.js';
+    const data = JSON.parse(document.getElementById('fg-data').textContent);
+    initPortfolio(data);
+  </script>
+
+  <!-- Netlify Identity: catches the invite/confirmation token when it lands on
+       the homepage and forwards the photographer to the CMS login at /admin/. -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script is:inline>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', (user) => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

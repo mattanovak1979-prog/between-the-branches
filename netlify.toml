@@ -1,0 +1,8 @@
+# Netlify build config. "Import from GitHub" auto-detects Astro, but pinning it
+# here makes the build reproducible.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"

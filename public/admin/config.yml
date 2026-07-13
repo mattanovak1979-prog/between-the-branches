@@ -1,0 +1,45 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Uploaded photos land here in the repo, and the site references them at /images/specimens/<file>
+media_folder: "public/images/specimens"
+public_folder: "/images/specimens"
+
+# Editorial workflow off = changes publish (commit to main) immediately.
+publish_mode: simple
+
+collections:
+  # ---- One entry per photo ----
+  - name: "specimens"
+    label: "Specimens"
+    label_singular: "Specimen"
+    folder: "src/content/specimens"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{fields.no}}"
+    identifier_field: "title"
+    summary: "No. {{fields.no}} — {{title}}"
+    sortable_fields: ["no", "title", "cat"]
+    fields:
+      - { name: "no", label: "Specimen number", widget: "string", hint: "Zero-padded, e.g. 0031. Used to order and name the entry." }
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "cat", label: "Category", widget: "select", options: ["Birds", "Wildlife", "Landscapes", "Close-ups"] }
+      - { name: "place", label: "Location", widget: "string", required: false }
+      - { name: "coord", label: "Time of day", widget: "string", required: false, hint: "Free text, e.g. 8:02 PM" }
+      - { name: "story", label: "Story", widget: "text", required: false, hint: "A short first-person caption — shown in the handwritten font." }
+      - { name: "exif", label: "Camera settings", widget: "string", required: false, hint: "e.g. f/5.6 · 1/1600s · ISO 400" }
+      - { name: "image", label: "Photo", widget: "image" }
+      - { name: "ratio", label: "Aspect ratio hint", widget: "hidden", default: 1.5 }
+
+  # ---- Site settings singleton ----
+  - name: "settings"
+    label: "Site settings"
+    files:
+      - name: "site"
+        label: "Site"
+        file: "src/content/settings/site.md"
+        format: "frontmatter"
+        fields:
+          - { name: "hero", label: "Hero photo", widget: "image", hint: "The full-width photo at the top of the catalog." }
