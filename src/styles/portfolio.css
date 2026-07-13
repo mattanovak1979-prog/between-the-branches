@@ -44,11 +44,12 @@
 .fg-mode small{font-family:'Fraunces',serif; font-size:11px; opacity:.7; font-weight:500;}
 
 /* Hero (catalog) */
-/* Hero locked to the photo's own 3:2 shape so the full scene (sky + water)
-   shows instead of a cropped horizontal band. Capped at 92vh so it stays
-   sane on very tall/large monitors. Mobile height is overridden below. */
-.fg-hero{position:relative; width:100%; aspect-ratio:3 / 2; max-height:92vh; overflow:hidden;}
-.fg-hero-img{width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; filter:brightness(1.14) contrast(.96) saturate(1.06); animation:fg-kenburns 30s ease-in-out infinite alternate;}
+/* Hero shows the WHOLE photo edge-to-edge: full width, natural height, never
+   cropped — so the entire scene (all the sky and all the water) is visible.
+   No fixed height, no cap, no zoom animation (that was clipping the water).
+   Mobile keeps a compact fixed-height cover hero (overridden below). */
+.fg-hero{position:relative; width:100%; overflow:hidden;}
+.fg-hero-img{width:100%; height:auto; display:block; filter:brightness(1.14) contrast(.96) saturate(1.06);}
 @keyframes fg-kenburns{from{transform:scale(1)}to{transform:scale(1.035)}}
 .fg-hero-scrim{position:absolute; inset:0; background:radial-gradient(135% 100% at 50% 42%, rgba(8,14,10,.34), rgba(8,14,10,.06) 72%);}
 .fg-hero-copy{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 clamp(20px,5vw,56px); color:var(--bone);}
@@ -201,17 +202,21 @@
   .fg-peek{display:none;}
   /* Phones: photo only — no caption on the pic. Details open in the lightbox on tap. */
   .fg-reveal{display:none;}
+  /* Phones keep a compact, fixed-height hero that fills its box (cover). */
   .fg-hero{height:min(52vh,420px);}
+  .fg-hero-img{height:100%; object-fit:cover; object-position:50% 50%;}
   .fg-hero-sub,.fg-hero-tag{display:none;}
   .fg-th-nav{position:fixed; bottom:20px; margin:0;}
   .fg-rail{display:none;}
-  .fg-trail-copy{padding-bottom:64px;}
-  /* Trail: landscape photos in portrait full-screen sections. Fill most of
-     the screen (photo takes the top ~80%, caption sits in the dark strip
-     below) — a middle ground between the hard full-bleed crop and a small
-     fully-contained band. */
-  .fg-trail-sec{background:var(--ink);}
-  .fg-trail-sec img{object-fit:cover; object-position:50% 50%; height:80%; inset:0 0 auto 0;}
+  /* Trail on portrait phones: show the WHOLE landscape photo (no zoom/crop),
+     with the caption directly beneath it, the photo+caption block centered on
+     a dark field. The caption lands in the same place on every slide. The dark
+     margins above/below are the unavoidable cost of not cropping a wide photo
+     on a tall screen. */
+  .fg-trail-sec{background:var(--ink); flex-direction:column; justify-content:center;}
+  .fg-trail-sec img{position:static; width:100%; height:auto; object-fit:contain;}
+  .fg-trail-scrim{display:none;}
+  .fg-trail-copy{position:static; align-self:stretch; max-width:none; padding:16px clamp(20px,6vw,40px) 20px;}
   /* Portrait phones: keep all three mode tabs (incl. Trail) on one row.
      Drop the wordmark (bird logomark stays) and tighten the header so the
      Catalog/Journal/Trail switch never runs off the right edge. Header height
